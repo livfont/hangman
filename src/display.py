@@ -8,6 +8,7 @@ clock = pygame.time.Clock()
 running = True
 
 import helper
+import start
 
 BLACK = (0,0,0)
 WHITE = (255,255,255)
@@ -21,6 +22,9 @@ wrongGuessFont = pygame.font.SysFont('Roboto', 50)
 
 
 player_pos = pygame.Vector2(Display.get_width() / 2, Display.get_height() / 2)
+
+word = start.randomwordgenerator()
+wrongguesses = []
 
 while running:
     # poll for events
@@ -48,19 +52,32 @@ while running:
     Display.blit(wrongGuessesText, (125, 525))
 
     # CODE HERE
+    
     # Make boxes for the letters
-    helper.drawBoxes(Display, 5)
+    helper.drawBoxes(Display, len(word)) # number of letters in the word (boxes)
+    guess = "A"
+
+    if guess in word: #display the letter 
+        i=0
+        for letter in word:
+            if guess == letter:
+                helper.addLetter(Display, guess, i)
+            i += 1
+
+    else:
+        wrongguesses.append(guess)
+        helper.wrong(Display, 1)
 
     # Add letters
-    helper.addLetter(Display, "H", 0)
-    helper.addLetter(Display, "A", 4)
-
+    # helper.addLetter(Display, "H", 0)
+   
     # Show wrong guesses
-    helper.showWrongGuesses(Display, ["B","C"])
+    helper.showWrongGuesses(Display, wrongguesses)
 
-    # Draw hangman
-    helper.wrong(Display, 1)
-    helper.wrong(Display, 2)
+    # Draw hangman up to 6 wrong guesses
+    # helper.wrong(Display, 1)
+    # helper.wrong(Display, 2)
+    # helper.wrong(Display, 3)
 
 
     # flip() the display to put your work on Display

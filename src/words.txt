@@ -1,0 +1,10 @@
+word
+apple
+banana
+python
+bergen
+crocs
+cookies
+peep
+hungry
+tired
